@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Portal Académico {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+</head>
+<body>
+
+    <header>
+        <h1>Portal Académico</h1>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{{ url_for('index') }}" class="{{ 'active' if request.path == '/' else '' }}">Inicio</a>
+                    </li>
+                    
+
+                    <!-- Si el usuario HA INICIADO sesión -->
+                    {% if 'usuario' in session %}
+                        <li>
+                            <a href="{{ url_for('perfil') }}" class="{{ 'active' if request.path == '/perfil' else '' }}">
+                                Perfil
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ url_for('cursos') }}" class="{{ 'active' if request.path == '/cursos' else '' }}">Cursos</a>
+                        </li>
+
+                        <li>
+                            <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+                        </li>
+
+                    <!-- Si el usuario NO ha iniciado sesión -->
+                    {% else %}
+                        <li>
+                            <a href="{{ url_for('login') }}" class="{{ 'active' if request.path == '/login' else '' }}">Iniciar Sesión</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+    </header>
+
+    <main>
+        <!-- Mensajes flash (bienvenida / errores) -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                {% for category, message in messages %}
+                    <p class="alert alert-{{ category }}">{{ message }}</p>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+
+        {% block content %}
+        
+        {% endblock %}
+    </main>
+
+</body>
+</html>

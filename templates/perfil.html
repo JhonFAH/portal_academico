@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil {% endblock %}
+
+{% block content %}
+<h2>Perfil de Usuario</h2>
+
+<div class="card-perfil">
+    <p><strong>Nombre de Usuario:</strong> {{ usuario }}</p>
+    <p><strong>Estado:</strong> <span class="badge-activo">Sesión Activa</span></p>
+</div>
+
+<p style="margin-top: 20px;">
+    <a href="{{ url_for('logout') }}" class="btn-logout">Cerrar Sesión</a>
+</p>
+{% endblock %}
