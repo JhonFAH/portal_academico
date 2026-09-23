@@ -11,6 +11,13 @@ usuarios = {
     "pedro": "2026"
 }
 
+# Lista de cursos
+cursos_data = [
+    {"nombre": "Programación Web", "docente": "Luis Pérez", "cupos": 15},
+    {"nombre": "Bases de Datos", "docente": "Ana López", "cupos": 8},
+    {"nombre": "Inteligencia Artificial", "docente": "Carlos Rojas", "cupos": 0}
+]
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -37,7 +44,7 @@ def cursos():
     if 'usuario' not in session:
         flash('Debes iniciar sesión para acceder a cursos.', 'danger')
         return redirect(url_for('login'))
-    return render_template('cursos.html')
+    return render_template('cursos.html', cursos=cursos_data)
 
 # Ruta protegida /perfil
 @app.route('/perfil')

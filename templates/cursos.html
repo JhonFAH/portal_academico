@@ -3,8 +3,33 @@
 {% block title %} Cursos {% endblock %}
 
 {% block content %}
-<h2>Lista de Cursos Disponibles</h2>
-<!-- <ul>
-    <li></li>
-</ul> -->
+    <h2>Lista de Cursos Disponibles</h2>
+    <table class="tabla-cursos" border="1">
+        <thead>
+            <tr>
+                <th>Nombre del Curso</th>
+                <th>Docente</th>
+                <th>Cupos</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for curso in cursos %}
+                <tr>
+                    <td>{{ curso.nombre }}</td>
+                    <td>{{ curso.docente }}</td>
+                    <td>{{ curso.cupos }}</td>
+                    <td>
+                        <!-- Condición para validar cupos -->
+                        {% if curso.cupos > 0 %}
+                            <span class="disponible">Curso disponible</span>
+                        {% else %}
+                            <span class="lleno">Curso lleno</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
